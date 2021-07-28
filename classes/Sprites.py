@@ -7,17 +7,19 @@ from classes.Spritesheet import Spritesheet
 
 class Sprites:
     def __init__(self):
+        # char = input("Please Chose a character,Mario or luigi:\n")
+        # while char != "Mario" and char != "Luigi":
+        #     char = input("Please Chose a character,Mario or luigi:\n")
         self.spriteCollection = self.loadSprites(
             [
-                "./sprites/Mario.json",
+                f"./sprites/Mario.json",
                 "./sprites/Goomba.json",
                 "./sprites/Koopa.json",
                 "./sprites/Animations.json",
                 "./sprites/BackgroundSprites.json",
                 "./sprites/ItemAnimations.json",
                 "./sprites/RedMushroom.json"
-            ]
-        )
+            ])
 
     def loadSprites(self, urlList):
         resDict = {}
