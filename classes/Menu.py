@@ -12,6 +12,7 @@ class Menu:
         self.sound = sound
         self.start = False
         self.inSettings = False
+        self.ChoosingCharacter = False
         self.state = 0
         self.level = level
         self.music = True
@@ -47,24 +48,40 @@ class Menu:
         self.drawMenuBackground()
         self.dashboard.update()
 
-        if not self.inSettings:
+        if not self.inSettings and not self.ChoosingCharacter:
             self.drawMenu()
-        else:
+        elif not self.ChoosingCharacter:
             self.drawSettings()
+        else:
+            self.ChangeChar()
+
+    def ChangeChar(self):
+        self.drawDot()
+        self.dashboard.drawText("MARIO", 180, 273, 24)
+        self.dashboard.drawText("LUIGI", 180, 313, 24)
+        self.dashboard.drawText("BACK", 180, 353, 24)
 
     def drawDot(self):
         if self.state == 0:
-            self.screen.blit(self.menu_dot, (145, 273))
-            self.screen.blit(self.menu_dot2, (145, 313))
-            self.screen.blit(self.menu_dot2, (145, 353))
+            self.screen.blit(self.menu_dot, (145, 263))
+            self.screen.blit(self.menu_dot2, (145, 303))
+            self.screen.blit(self.menu_dot2, (145, 343))
+            self.screen.blit(self.menu_dot2, (145, 383))
         elif self.state == 1:
-            self.screen.blit(self.menu_dot, (145, 313))
-            self.screen.blit(self.menu_dot2, (145, 273))
-            self.screen.blit(self.menu_dot2, (145, 353))
+            self.screen.blit(self.menu_dot2, (145, 263))
+            self.screen.blit(self.menu_dot, (145, 303))
+            self.screen.blit(self.menu_dot2, (145, 343))
+            self.screen.blit(self.menu_dot2, (145, 383))
         elif self.state == 2:
-            self.screen.blit(self.menu_dot, (145, 353))
-            self.screen.blit(self.menu_dot2, (145, 273))
-            self.screen.blit(self.menu_dot2, (145, 313))
+            self.screen.blit(self.menu_dot2, (145, 263))
+            self.screen.blit(self.menu_dot2, (145, 303))
+            self.screen.blit(self.menu_dot, (145, 343))
+            self.screen.blit(self.menu_dot2, (145, 383))
+        elif self.state == 3:
+            self.screen.blit(self.menu_dot2, (145, 263))
+            self.screen.blit(self.menu_dot2, (145, 303))
+            self.screen.blit(self.menu_dot2, (145, 343))
+            self.screen.blit(self.menu_dot, (145, 383))
 
     def loadSettings(self, url):
         try:
@@ -94,9 +111,10 @@ class Menu:
 
     def drawMenu(self):
         self.drawDot()
-        self.dashboard.drawText("CHOOSE LEVEL", 180, 280, 24)
-        self.dashboard.drawText("SETTINGS", 180, 320, 24)
-        self.dashboard.drawText("EXIT", 180, 360, 24)
+        self.dashboard.drawText("CHOOSE LEVEL", 180, 273, 24)
+        self.dashboard.drawText("SETTINGS", 180, 313, 24)
+        self.dashboard.drawText("EXIT", 180, 353, 24)
+        self.dashboard.drawText("CHOOSE CHARACTER", 180, 390, 24)
 
     def drawMenuBackground(self, withBanner=True):
         for y in range(0, 13):
@@ -136,17 +154,17 @@ class Menu:
 
     def drawSettings(self):
         self.drawDot()
-        self.dashboard.drawText("MUSIC", 180, 280, 24)
+        self.dashboard.drawText("MUSIC", 180, 270, 24)
         if self.music:
-            self.dashboard.drawText("ON", 340, 280, 24)
+            self.dashboard.drawText("ON", 340, 270, 24)
         else:
-            self.dashboard.drawText("OFF", 340, 280, 24)
-        self.dashboard.drawText("SFX", 180, 320, 24)
+            self.dashboard.drawText("OFF", 340, 270, 24)
+        self.dashboard.drawText("SFX", 180, 310, 24)
         if self.sfx:
-            self.dashboard.drawText("ON", 340, 320, 24)
+            self.dashboard.drawText("ON", 340, 310, 24)
         else:
-            self.dashboard.drawText("OFF", 340, 320, 24)
-        self.dashboard.drawText("BACK", 180, 360, 24)
+            self.dashboard.drawText("OFF", 340, 310, 24)
+        self.dashboard.drawText("BACK", 180, 350, 24)
 
     def chooseLevel(self):
         self.drawMenuBackground(False)
@@ -196,9 +214,10 @@ class Menu:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    if self.inChoosingLevel or self.inSettings:
+                    if self.inChoosingLevel or self.inSettings or self.ChoosingCharacter:
                         self.inChoosingLevel = False
                         self.inSettings = False
+                        self.ChoosingCharacter = False
                         self.__init__(self.screen, self.dashboard, self.level, self.sound)
                     else:
                         pygame.quit()
@@ -215,7 +234,7 @@ class Menu:
                         if self.currSelectedLevel+3 <= self.levelCount:
                             self.currSelectedLevel += 3
                             self.drawLevelChooser()
-                    if self.state < 2:
+                    if self.state < 3:
                         self.state += 1
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_h:
                     if self.currSelectedLevel > 1:
@@ -234,7 +253,7 @@ class Menu:
                         self.dashboard.levelName = self.levelNames[self.currSelectedLevel-1].split("Level")[1]
                         self.start = True
                         return
-                    if not self.inSettings:
+                    if not self.inSettings and not self.ChoosingCharacter:
                         if self.state == 0:
                             self.chooseLevel()
                         elif self.state == 1:
@@ -243,7 +262,10 @@ class Menu:
                         elif self.state == 2:
                             pygame.quit()
                             sys.exit()
-                    else:
+                        elif self.state == 3:
+                            self.ChoosingCharacter = True
+                            self.state = 0
+                    elif self.inSettings and not self.ChoosingCharacter:
                         if self.state == 0:
                             if self.music:
                                 self.sound.music_channel.stop()
@@ -262,4 +284,7 @@ class Menu:
                             self.saveSettings("./settings.json")
                         elif self.state == 2:
                             self.inSettings = False
+                    elif not self.inSettings and self.ChoosingCharacter:
+                        if self.state == 2:
+                            self.ChoosingCharacter = False
         pygame.display.update()
