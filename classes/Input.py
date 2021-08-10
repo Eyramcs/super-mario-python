@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
-
+import time
 
 class Input:
     def __init__(self, entity):
@@ -17,7 +17,6 @@ class Input:
 
     def checkForKeyboardInput(self):
         pressedKeys = pygame.key.get_pressed()
-
         if pressedKeys[K_LEFT] or pressedKeys[K_h] and not pressedKeys[K_RIGHT]:
             self.entity.traits["goTrait"].direction = -1
         elif pressedKeys[K_RIGHT] or pressedKeys[K_l] and not pressedKeys[K_LEFT]:
