@@ -20,12 +20,10 @@ def main():
     level = Level(screen, sound, dashboard)
     menu = Menu(screen, dashboard, level, sound)
 
-
-
     while not menu.start:
         character = menu.get_character()
         menu.update()
-#       print(character)
+        print(character)
         file = open("Character.txt", "w")
         file.write(character)
         file.close()

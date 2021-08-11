@@ -173,12 +173,8 @@ class Mario(EntityBase):
 
 
 file = open(f"Character.txt", "r")
-print(file)
 character = file.readline()
-character2 = character
-while character2 == character:
-    character = file.readline()
-spriteCollection = Sprites(character2).spriteCollection
+spriteCollection = Sprites(character).spriteCollection
 smallAnimation = Animation(
     [
         spriteCollection["mario_run1"].image,
