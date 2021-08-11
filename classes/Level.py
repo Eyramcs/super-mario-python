@@ -14,7 +14,7 @@ from entities.RandomBox import RandomBox
 
 class Level:
     def __init__(self, screen, sound, dashboard):
-        self.sprites = Sprites()
+        self.sprites = Sprites("Mario")
         self.dashboard = dashboard
         self.sound = sound
         self.screen = screen

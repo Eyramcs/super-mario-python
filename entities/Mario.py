@@ -13,25 +13,8 @@ from traits.go import GoTrait
 from traits.jump import JumpTrait
 from classes.Pause import Pause
 
-spriteCollection = Sprites().spriteCollection
-smallAnimation = Animation(
-    [
-        spriteCollection["mario_run1"].image,
-        spriteCollection["mario_run2"].image,
-        spriteCollection["mario_run3"].image,
-    ],
-    spriteCollection["mario_idle"].image,
-    spriteCollection["mario_jump"].image,
-)
-bigAnimation = Animation(
-    [
-        spriteCollection["mario_big_run1"].image,
-        spriteCollection["mario_big_run2"].image,
-        spriteCollection["mario_big_run3"].image,
-    ],
-    spriteCollection["mario_big_idle"].image,
-    spriteCollection["mario_big_jump"].image,
-)
+
+outsidevarible = "test"
 
 
 class Mario(EntityBase):
@@ -58,6 +41,7 @@ class Mario(EntityBase):
         self.restart = False
         self.pause = False
         self.pauseObj = Pause(screen, self, dashboard)
+
 
     def update(self):
         if self.invincibilityFrames > 0:
@@ -186,3 +170,26 @@ class Mario(EntityBase):
                 self.traits['goTrait'].updateAnimation(bigAnimation)
                 self.rect = pygame.Rect(self.rect.x, self.rect.y-32, 32, 64)
                 self.invincibilityFrames = 20
+
+
+file = open(f"Character.txt", "r")
+character = file.readline()
+spriteCollection = Sprites(character).spriteCollection
+smallAnimation = Animation(
+    [
+        spriteCollection["mario_run1"].image,
+        spriteCollection["mario_run2"].image,
+        spriteCollection["mario_run3"].image,
+    ],
+    spriteCollection["mario_idle"].image,
+    spriteCollection["mario_jump"].image,
+)
+bigAnimation = Animation(
+    [
+        spriteCollection["mario_big_run1"].image,
+        spriteCollection["mario_big_run2"].image,
+        spriteCollection["mario_big_run3"].image,
+    ],
+    spriteCollection["mario_big_idle"].image,
+    spriteCollection["mario_big_jump"].image,
+)

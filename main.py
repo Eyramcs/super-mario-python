@@ -3,10 +3,11 @@ from classes.Dashboard import Dashboard
 from classes.Level import Level
 from classes.Menu import Menu
 from classes.Sound import Sound
-from entities.Mario import Mario
+from entities.Mario import *
 
 
 windowSize = 640, 480
+character ="test"
 
 
 def main():
@@ -20,7 +21,12 @@ def main():
     menu = Menu(screen, dashboard, level, sound)
 
     while not menu.start:
+        character = menu.get_character()
         menu.update()
+        print(character)
+        file = open("Character.txt", "w")
+        file.write(character)
+        file.close()
 
     mario = Mario(0, 0, level, screen, dashboard, sound)
     clock = pygame.time.Clock()
@@ -36,6 +42,12 @@ def main():
         pygame.display.update()
         clock.tick(max_frame_rate)
     return 'restart'
+
+
+# def idktocallit():
+#     thischaracter = character
+#     print("I selected %s", character)
+#     return thischaracter
 
 
 if __name__ == "__main__":

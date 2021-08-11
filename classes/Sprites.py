@@ -3,16 +3,14 @@ import json
 from classes.Animation import Animation
 from classes.Sprite import Sprite
 from classes.Spritesheet import Spritesheet
+from classes.Menu import Menu
 
 
 class Sprites:
-    def __init__(self):
-        # char = input("Please Chose a character,Mario or luigi:\n")
-        # while char != "Mario" and char != "Luigi":
-        #     char = input("Please Chose a character,Mario or luigi:\n")
+    def __init__(self, Character):
         self.spriteCollection = self.loadSprites(
             [
-                f"./sprites/Mario.json",
+                f"./sprites/{Character}.json",
                 "./sprites/Goomba.json",
                 "./sprites/Koopa.json",
                 "./sprites/Animations.json",

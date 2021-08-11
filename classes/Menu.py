@@ -2,12 +2,12 @@ import json
 import sys
 import os
 import pygame
-
 from classes.Spritesheet import Spritesheet
 
 
 class Menu:
     def __init__(self, screen, dashboard, level, sound):
+        self.Character = "Mario"
         self.screen = screen
         self.sound = sound
         self.start = False
@@ -54,6 +54,12 @@ class Menu:
             self.drawSettings()
         else:
             self.ChangeChar()
+
+    def set_Character(self, val):
+        self.Character = val
+
+    def get_character(self):
+        return self.Character
 
     def ChangeChar(self):
         self.drawDot()
@@ -285,6 +291,15 @@ class Menu:
                         elif self.state == 2:
                             self.inSettings = False
                     elif not self.inSettings and self.ChoosingCharacter:
+                        if self.state == 0:
+                            self.set_Character("Mario")
+#                            print(self.Character)
+                        if self.state == 1:
+                            self.set_Character("Luigi")
+#                             print(self.Character)
                         if self.state == 2:
                             self.ChoosingCharacter = False
         pygame.display.update()
+
+
+
