@@ -10,6 +10,7 @@ from entities.Mushroom import RedMushroom
 from entities.Koopa import Koopa
 from entities.CoinBox import CoinBox
 from entities.RandomBox import RandomBox
+from entities.PiranhaPlant import PiranhaPlant
 
 
 class Level:
@@ -32,6 +33,7 @@ class Level:
 
     def loadEntities(self, data):
         try:
+#            [self.addPirranaplant(x, y) for x, y in data["level"]["entities"]["Piranha-Plant"]]
             [self.addCoinBox(x, y) for x, y in data["level"]["entities"]["CoinBox"]]
             [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
             [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
@@ -202,4 +204,9 @@ class Level:
     def addRedMushroom(self, x, y):
         self.entityList.append(
             RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )
+
+    def addPirranaplant(self, x, y):
+        self.entityList.append(
+            PiranhaPlant(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )

@@ -221,6 +221,9 @@
         "RandomBox":[
           [22, 9, "RedMushroom"],
           [76, 9, "RedMushroom"]
+        ],
+        "Piranha-Plant": [
+          [30,11]
         ]
       }
     }

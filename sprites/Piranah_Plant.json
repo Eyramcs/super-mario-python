@@ -1,0 +1,23 @@
+{
+  "spriteSheetURL": "./img/characters.gif",
+  "type":"character",
+  "size":[16,16],
+  "sprites":[
+    {
+      "name":"Piranha_Plant1",
+      "x":296,
+      "y":187,
+      "scalefactor":2,
+      "colorKey":-1,
+      "collision":false
+    },
+    {
+      "name":"Piranha_Plant2",
+      "x":315,
+      "y":187,
+      "scalefactor":2,
+      "colorKey":-1,
+      "collision":false
+    }
+  ]
+}
