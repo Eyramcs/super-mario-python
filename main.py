@@ -23,7 +23,6 @@ def main():
     while not menu.start:
         character = menu.get_character()
         menu.update()
-        print(character)
         file = open("Character.txt", "w")
         file.write(character)
         file.close()

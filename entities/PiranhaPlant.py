@@ -1,5 +1,3 @@
-import pygame.transform
-
 from classes.Animation import Animation
 from classes.Collider import Collider
 from classes.EntityCollider import EntityCollider
@@ -10,7 +8,6 @@ from entities.EntityBase import EntityBase
 class PiranhaPlant(EntityBase):
 
     def __init__(self, screen, spriteColl, x, y, level, sound):
-        super(PiranhaPlant, self).__init__(y, x - 1, 1.25)
         self.spriteCollection = spriteColl
         self.animation = Animation(
             [
@@ -34,10 +31,6 @@ class PiranhaPlant(EntityBase):
             self.checkEntityCollision()
         else:
             self.onDead()
-
-    def onDead(self):
-        pygame.transform.flip(self.animation, False, True)
-        
 
     def drawPiranha_Plant(self, camera):
         self.screen.blit(self.animation.image, (self.rect.x + camera.x, self.rect.y))

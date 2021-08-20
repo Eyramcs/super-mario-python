@@ -33,13 +33,13 @@ class Level:
 
     def loadEntities(self, data):
         try:
-#            [self.addPirranaplant(x, y) for x, y in data["level"]["entities"]["Piranha-Plant"]]
             [self.addCoinBox(x, y) for x, y in data["level"]["entities"]["CoinBox"]]
             [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
             [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
             [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
             [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
             [self.addRandomBox(x, y, item) for x, y, item in data["level"]["entities"]["RandomBox"]]
+            [self.addPirranaplant(x, y) for x, y in data["level"]["entities"]["Piranha-Plant"]]
         except:
             # if no entities in Level
             pass
@@ -159,6 +159,7 @@ class Level:
                 self.dashboard,
             )
         )
+        print(self.entityList)
 
     def addRandomBox(self, x, y, item):
         self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
@@ -174,9 +175,11 @@ class Level:
                 self
             )
         )
+        print(self.entityList)
 
     def addCoin(self, x, y):
         self.entityList.append(Coin(self.screen, self.sprites.spriteCollection, x, y))
+        print(self.entityList)
 
     def addCoinBrick(self, x, y):
         self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
@@ -190,23 +193,28 @@ class Level:
                 self.dashboard
             )
         )
+        print(self.entityList)
 
     def addGoomba(self, x, y):
         self.entityList.append(
             Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
+        print(self.entityList)
 
     def addKoopa(self, x, y):
         self.entityList.append(
             Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
+        print(self.entityList)
 
     def addRedMushroom(self, x, y):
         self.entityList.append(
             RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
+        print(self.entityList)
 
     def addPirranaplant(self, x, y):
         self.entityList.append(
             PiranhaPlant(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
+        print(self.entityList)

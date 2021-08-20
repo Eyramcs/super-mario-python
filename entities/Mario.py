@@ -108,7 +108,7 @@ class Mario(EntityBase):
                 mob.rect.x += 5
                 mob.leftrightTrait.direction = 1
                 self.sound.play_sfx(self.sound.kick)
-        elif collisionState.isColliding and mob.alive and not self.invincibilityFrames:
+        elif (mob == "PiranhaPlant" or collisionState.isColliding) and mob.alive and not self.invincibilityFrames:
             if self.powerUpState == 0:
                 self.gameOver()
             elif self.powerUpState == 1:
@@ -125,7 +125,7 @@ class Mario(EntityBase):
     def killEntity(self, ent):
         if ent.__class__.__name__ != "Koopa" and ent.__class__.__name__ != "Piranha_Plant":
             ent.alive = False
-        else:
+        elif ent.__class__.__name__ == "Koopa":
             ent.timer = 0
             ent.leftrightTrait.speed = 1
             ent.alive = True
