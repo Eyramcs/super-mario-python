@@ -6,7 +6,6 @@ from entities.EntityBase import EntityBase
 
 
 class PiranhaPlant(EntityBase):
-
     def __init__(self, screen, spriteColl, x, y, level, sound):
         self.spriteCollection = spriteColl
         self.animation = Animation(

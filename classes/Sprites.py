@@ -3,7 +3,6 @@ import json
 from classes.Animation import Animation
 from classes.Sprite import Sprite
 from classes.Spritesheet import Spritesheet
-from classes.Menu import Menu
 
 
 class Sprites:
@@ -16,7 +15,8 @@ class Sprites:
                 "./sprites/Animations.json",
                 "./sprites/BackgroundSprites.json",
                 "./sprites/ItemAnimations.json",
-                "./sprites/RedMushroom.json"
+                "./sprites/RedMushroom.json",
+                "./sprites/Piranah_Plant.json"
             ])
 
     def loadSprites(self, urlList):
