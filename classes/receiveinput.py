@@ -1,25 +1,32 @@
 import pygame
 
+
 class GamePad:
     axisA = [0, 0]
     axisB = [0, 0]
     buttons = {"A":0, "B":0, "X":0, "Y":0, "LBUMP":0, "RBUMP":0, "BACK":0, "START":0}
     gamePadRun = True
+
     def __init__(self):
         pygame.init()
         pygame.joystick.init()
+
     def endInputs(self):
         self.gamePadRun = False
         return pygame.quit()
+
     def setAxisA(self, x, y):
         self.axisA = [x, y]
+
     def setAxisB(self, x, y):
         self.axisB = [x, y]
+
     def updateButton(self, button, value):
         possibleButtons = list(self.buttons.keys())
         for i in possibleButtons:
             if i == possibleButtons[button]:
                 self.buttons.update({possibleButtons[button]:value})
+
     def getInputs(self):
         #Pygame events
             for event in pygame.event.get(): # User did something.

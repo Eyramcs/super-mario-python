@@ -3,10 +3,12 @@ from classes.Collider import Collider
 from classes.EntityCollider import EntityCollider
 from classes.Maths import Vec2D
 from entities.EntityBase import EntityBase
+#extra
 
 
 class PiranhaPlant(EntityBase):
     def __init__(self, screen, spriteColl, x, y, level, sound):
+        # extra
         self.spriteCollection = spriteColl
         self.animation = Animation(
             [
@@ -15,6 +17,7 @@ class PiranhaPlant(EntityBase):
             ]
         )
         self.screen = screen
+        # extra stuff
         self.type = "Mob"
         self.dashboard = level.dashboard
         self.collision = Collider(self, level)
@@ -27,6 +30,7 @@ class PiranhaPlant(EntityBase):
         if self.alive:
             self.applyGravity()
             self.drawPiranha_Plant(camera)
+            # extra
             self.checkEntityCollision()
         else:
             self.onDead()
@@ -46,3 +50,8 @@ class PiranhaPlant(EntityBase):
             if collisionState.isColliding:
                 if ent.type == "Mob":
                     self._onCollisionWithMob(ent, collisionState)
+
+    def _onCollisionWithMob(self, mob, collisionState):
+        if collisionState.isColliding and mob.bouncing:
+            self.alive = False
+            self.sound.play_sfx(self.sound.brick_bump)

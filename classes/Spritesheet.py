@@ -12,7 +12,7 @@ class Spritesheet(object):
             print("Unable to load spritesheet image:", filename)
             raise SystemExit
 
-    def image_at(self, x, y, scalingfactor, colorkey=None, ignoreTileSize=False,
+    def image_at(self, x, y, scalingfactor, colorkey=-1, ignoreTileSize=False,
                  xTileSize=16, yTileSize=16):
         if ignoreTileSize:
             rect = pygame.Rect((x, y, xTileSize, yTileSize))

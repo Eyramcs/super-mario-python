@@ -33,12 +33,15 @@ class Input:
         mouseX, mouseY = pygame.mouse.get_pos()
         if self.isRightMouseButtonPressed(events):
             self.entity.levelObj.addKoopa(
-                mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
+                 mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
             )
             self.entity.levelObj.addGoomba(
                 mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
             )
             self.entity.levelObj.addRedMushroom(
+                mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
+            )
+            self.entity.levelObj.addBlue_Koopa(
                 mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
             )
         if self.isLeftMouseButtonPressed(events):

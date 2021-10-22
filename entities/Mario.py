@@ -123,9 +123,9 @@ class Mario(EntityBase):
         self.traits["bounceTrait"].jump = True
 
     def killEntity(self, ent):
-        if ent.__class__.__name__ != "Koopa" and ent.__class__.__name__ != "Piranha_Plant":
+        if ent.__class__.__name__ != "Koopa" and (ent.__class__.__name__ != "Piranha_Plant" and ent.__class__.__name__ != "BlueKoopa"):
             ent.alive = False
-        elif ent.__class__.__name__ == "Koopa":
+        elif ent.__class__.__name__ == "Koopa" or ent.__class__.__name__ == "BlueKoopa":
             ent.timer = 0
             ent.leftrightTrait.speed = 1
             ent.alive = True

@@ -11,7 +11,7 @@ from entities.Koopa import Koopa
 from entities.CoinBox import CoinBox
 from entities.RandomBox import RandomBox
 from entities.PiranhaPlant import PiranhaPlant
-
+from entities.BlueKoopa import BlueKoopa
 
 class Level:
     def __init__(self, screen, sound, dashboard):
@@ -39,7 +39,7 @@ class Level:
             [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
             [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
             [self.addRandomBox(x, y, item) for x, y, item in data["level"]["entities"]["RandomBox"]]
-            [self.addPirranaplant(x, y) for x, y in data["level"]["entities"]["Piranha-Plant"]]
+            # [self.addPirranaplant(x, y) for x, y in data["level"]["entities"]["Piranha-Plant"]]
         except:
             # if no entities in Level
             pass
@@ -175,7 +175,6 @@ class Level:
                 self
             )
         )
-        print(self.entityList)
 
     def addCoin(self, x, y):
         self.entityList.append(Coin(self.screen, self.sprites.spriteCollection, x, y))
@@ -193,28 +192,29 @@ class Level:
                 self.dashboard
             )
         )
-        print(self.entityList)
 
     def addGoomba(self, x, y):
         self.entityList.append(
             Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
-        print(self.entityList)
+
+    def addBlue_Koopa(self, x, y):
+        self.entityList.append(
+            BlueKoopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )
 
     def addKoopa(self, x, y):
         self.entityList.append(
             Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
-        print(self.entityList)
 
     def addRedMushroom(self, x, y):
         self.entityList.append(
             RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
-        print(self.entityList)
 
     def addPirranaplant(self, x, y):
         self.entityList.append(
             PiranhaPlant(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
-        print(self.entityList)
+
