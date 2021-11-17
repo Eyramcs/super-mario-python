@@ -6,10 +6,10 @@ from classes.Spritesheet import Spritesheet
 
 
 class Sprites:
-    def __init__(self, Character):
+    def __init__(self, Character="Mario"):
         self.spriteCollection = self.loadSprites(
             [
-               f"./sprites/{Character}.json",
+                f"./sprites/Mario.json",
                 "./sprites/Goomba.json",
                 "./sprites/Koopa.json",
                 "./sprites/Blue_koopa.json",
@@ -17,7 +17,8 @@ class Sprites:
                 "./sprites/BackgroundSprites.json",
                 "./sprites/ItemAnimations.json",
                 "./sprites/RedMushroom.json",
-                "./sprites/Piranah_Plant.json"
+                "./sprites/Piranah_Plant.json",
+                "./sprites/Star.json"
             ])
 
     def loadSprites(self, urlList):

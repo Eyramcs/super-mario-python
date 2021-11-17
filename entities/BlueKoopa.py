@@ -19,7 +19,7 @@ class BlueKoopa(EntityBase):
             ]
         )
         self.screen = screen
-        self.leftrightTrait = LeftRightWalkTrait(self, level)
+        self.leftrightTrait = LeftRightWalkTrait(self, level, speed=2)
         self.timer = 0
         self.timeAfterDeath = 35
         self.type = "Mob"
@@ -51,7 +51,7 @@ class BlueKoopa(EntityBase):
             )
 
     def shellBouncing(self, camera):
-        self.leftrightTrait.speed = 4
+        self.leftrightTrait.speed = 5
         self.applyGravity()
         self.animation.image = self.spriteCollection.get("Blue_koopa-hiding").image
         self.drawKoopa(camera)

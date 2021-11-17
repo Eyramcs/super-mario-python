@@ -7,6 +7,10 @@ class Sound:
         self.music_channel.set_volume(0.2)
         self.sfx_channel = mixer.Channel(1)
         self.sfx_channel.set_volume(0.2)
+        self.sfx_channel1 = mixer.Channel(3)
+        self.sfx_channel1.set_volume(0.2)
+        self.sfx_channel2 = mixer.Channel(4)
+        self.sfx_channel2.set_volume(0.2)
 
         self.allowSFX = True
 
@@ -21,10 +25,16 @@ class Sound:
         self.powerup = mixer.Sound('./sfx/powerup.ogg')
         self.powerup_appear = mixer.Sound('./sfx/powerup_appears.ogg')
         self.pipe = mixer.Sound('./sfx/pipe.ogg')
+        self.star = mixer.Sound('./sfx/Starman.ogg')
 
     def play_sfx(self, sfx):
         if self.allowSFX:
-            self.sfx_channel.play(sfx)
+            if not self.sfx_channel.get_busy():
+                self.sfx_channel.play(sfx)
+            elif not self.sfx_channel1.get_busy():
+                self.sfx_channel1.play(sfx)
+            else:
+                self.sfx_channel2.play(sfx)
 
     def play_music(self, music):
         self.music_channel.play(music)

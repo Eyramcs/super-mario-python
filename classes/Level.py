@@ -12,6 +12,8 @@ from entities.CoinBox import CoinBox
 from entities.RandomBox import RandomBox
 from entities.PiranhaPlant import PiranhaPlant
 from entities.BlueKoopa import BlueKoopa
+from entities.Star import Star
+
 
 class Level:
     def __init__(self, screen, sound, dashboard):
@@ -43,6 +45,7 @@ class Level:
         except:
             # if no entities in Level
             pass
+        self.addStar(5, 20)
 
     def loadLayers(self, data):
         layers = []
@@ -211,6 +214,11 @@ class Level:
     def addRedMushroom(self, x, y):
         self.entityList.append(
             RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )
+
+    def addStar(self, x, y):
+        self.entityList.append(
+            Star(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
 
     def addPirranaplant(self, x, y):

@@ -22,7 +22,7 @@
         {
             "name":"Blue_koopa-hiding-with-legs",
             "x":163,
-            "y":321,
+            "y":206,
             "scalefactor":2,
             "colorKey":-1,
             "collision":false
@@ -30,7 +30,7 @@
         {
             "name":"Blue_koopa-hiding",
             "x":45,
-            "y":195,
+            "y":80,
             "scalefactor":2,
             "colorKey":-1,
             "collision":false

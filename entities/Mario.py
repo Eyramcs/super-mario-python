@@ -8,11 +8,11 @@ from classes.Input import Input
 from classes.Sprites import Sprites
 from entities.EntityBase import EntityBase
 from entities.Mushroom import RedMushroom
+from entities.Star import Star
 from traits.bounce import bounceTrait
 from traits.go import GoTrait
 from traits.jump import JumpTrait
 from classes.Pause import Pause
-
 
 outsidevarible = "test"
 
@@ -41,11 +41,15 @@ class Mario(EntityBase):
         self.restart = False
         self.pause = False
         self.pauseObj = Pause(screen, self, dashboard)
-
+        self.starstate = False
 
     def update(self):
         if self.invincibilityFrames > 0:
             self.invincibilityFrames -= 1
+        elif self.invincibilityFrames == 0 and self.starstate is True:
+            self.starstate = False
+            self.sound.play_sfx(self.sound.pipe)
+
         self.updateTraits()
         self.moveMario()
         self.camera.move()
@@ -87,10 +91,18 @@ class Mario(EntityBase):
             self.powerup(1)
             self.killEntity(mob)
             self.sound.play_sfx(self.sound.powerup)
+        elif isinstance(mob, Star) and mob.alive:
+            self.powerup(10)
+            self.killEntity(mob)
+            self.sound.play_sfx(self.sound.star)
+        elif self.starstate:
+            self.killEntity(mob)
+            self.sound.play_sfx(self.sound.stomp)
         elif collisionState.isTop and (mob.alive or mob.bouncing):
             self.sound.play_sfx(self.sound.stomp)
             self.rect.bottom = mob.rect.top
-            self.bounce()
+            if not self.starstate:
+                self.bounce()
             self.killEntity(mob)
         elif collisionState.isTop and mob.alive and not mob.active:
             self.sound.play_sfx(self.sound.stomp)
@@ -123,7 +135,8 @@ class Mario(EntityBase):
         self.traits["bounceTrait"].jump = True
 
     def killEntity(self, ent):
-        if ent.__class__.__name__ != "Koopa" and (ent.__class__.__name__ != "Piranha_Plant" and ent.__class__.__name__ != "BlueKoopa"):
+        if ent.__class__.__name__ != "Koopa" and (
+                ent.__class__.__name__ != "Piranha_Plant" and ent.__class__.__name__ != "BlueKoopa"):
             ent.alive = False
         elif ent.__class__.__name__ == "Koopa" or ent.__class__.__name__ == "BlueKoopa":
             ent.timer = 0
@@ -162,14 +175,17 @@ class Mario(EntityBase):
     def setPos(self, x, y):
         self.rect.x = x
         self.rect.y = y
-        
+
     def powerup(self, powerupID):
         if self.powerUpState == 0:
             if powerupID == 1:
                 self.powerUpState = 1
                 self.traits['goTrait'].updateAnimation(bigAnimation)
-                self.rect = pygame.Rect(self.rect.x, self.rect.y-32, 32, 64)
+                self.rect = pygame.Rect(self.rect.x, self.rect.y - 32, 32, 64)
                 self.invincibilityFrames = 20
+        if powerupID <= 10:
+            self.starstate = True
+            self.invincibilityFrames = 1200
 
 
 file = open(f"Character.txt", "r")

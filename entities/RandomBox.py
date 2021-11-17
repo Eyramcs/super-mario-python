@@ -27,6 +27,9 @@ class RandomBox(EntityBase):
             if self.item == 'RedMushroom':
                 self.level.addRedMushroom(self.rect.y // 32 - 1, self.rect.x // 32)
                 self.sound.play_sfx(self.sound.powerup_appear)
+
+            elif self.item == "Star":
+                self.level.addStar(self.rect.y //32 - 1, self.rect.x // 32)
             self.item = None
             if self.time < self.maxTime:
                 self.time += 1

@@ -4,11 +4,11 @@ from classes.Collider import Collider
 
 
 class LeftRightWalkTrait:
-    def __init__(self, entity, level):
+    def __init__(self, entity, level, speed=1):
         self.direction = random.choice([-1, 1])
         self.entity = entity
         self.collDetection = Collider(self.entity, level)
-        self.speed = 1
+        self.speed = speed
         self.entity.vel.x = self.speed * self.direction
 
     def update(self):

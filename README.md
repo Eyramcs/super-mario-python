@@ -31,3 +31,7 @@ This is inspired by Meth-Meth-Method's [super mario game](https://github.com/met
 
 If you have any Improvements/Ideas/Refactors feel free to contact me or make a Pull Request.
 The code needs still a lot of refactoring as it is right now, so I appreciate any kind of Contribution.
+
+## Credit
+
+Credit to D-Dazzle from mario fan games galaxy for the super star song
