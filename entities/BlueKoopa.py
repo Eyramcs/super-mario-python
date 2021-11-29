@@ -28,6 +28,7 @@ class BlueKoopa(EntityBase):
         self.EntityCollider = EntityCollider(self)
         self.levelObj = level
         self.sound = sound
+        self.textPos = Vec2D(0, 0)
 
     def update(self, camera):
         if self.alive and self.active:
@@ -36,8 +37,10 @@ class BlueKoopa(EntityBase):
         elif self.alive and not self.active and not self.bouncing:
             self.sleepingInShell(camera)
             self.checkEntityCollision()
-        elif self.bouncing:
+        elif self.alive and self.bouncing:
             self.shellBouncing(camera)
+        else:
+            self.onDead(camera)
 
     def drawKoopa(self, camera):
         if self.leftrightTrait.direction == -1:
@@ -88,3 +91,19 @@ class BlueKoopa(EntityBase):
         if collisionState.isColliding and mob.bouncing:
             self.alive = False
             self.sound.play_sfx(self.sound.brick_bump)
+
+    def onDead(self, camera):
+        if self.timer == 0:
+            self.setPointsTextStartPosition(self.rect.x + 3, self.rect.y)
+        if self.timer < self.timeAfterDeath:
+            self.movePointsTextUpAndDraw(camera)
+        else:
+            self.alive = None
+        self.timer += 0.1
+
+    def setPointsTextStartPosition(self, x, y):
+        self.textPos = Vec2D(x, y)
+
+    def movePointsTextUpAndDraw(self, camera):
+        self.textPos.y += -0.5
+        self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)

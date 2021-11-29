@@ -46,7 +46,7 @@ class Mario(EntityBase):
     def update(self):
         if self.invincibilityFrames > 0:
             self.invincibilityFrames -= 1
-        elif self.invincibilityFrames == 0 and self.starstate is True:
+        elif self.invincibilityFrames == 0 and self.starstate:
             self.starstate = False
             self.sound.play_sfx(self.sound.pipe)
 
@@ -97,7 +97,6 @@ class Mario(EntityBase):
             self.sound.play_sfx(self.sound.star)
         elif self.starstate:
             self.killEntity(mob)
-            self.sound.play_sfx(self.sound.stomp)
         elif collisionState.isTop and (mob.alive or mob.bouncing):
             self.sound.play_sfx(self.sound.stomp)
             self.rect.bottom = mob.rect.top
@@ -128,15 +127,15 @@ class Mario(EntityBase):
                 self.traits['goTrait'].updateAnimation(smallAnimation)
                 x, y = self.rect.x, self.rect.y
                 self.rect = pygame.Rect(x, y + 32, 32, 32)
-                self.invincibilityFrames = 60
+                if not self.starstate:
+                    self.invincibilityFrames = 60
                 self.sound.play_sfx(self.sound.pipe)
 
     def bounce(self):
         self.traits["bounceTrait"].jump = True
 
     def killEntity(self, ent):
-        if ent.__class__.__name__ != "Koopa" and (
-                ent.__class__.__name__ != "Piranha_Plant" and ent.__class__.__name__ != "BlueKoopa"):
+        if (ent.__class__.__name__ != "Koopa" and ent.__class__.__name__ != "Piranha_Plant" and ent.__class__.__name__ != "BlueKoopa") or self.starstate:
             ent.alive = False
         elif ent.__class__.__name__ == "Koopa" or ent.__class__.__name__ == "BlueKoopa":
             ent.timer = 0
@@ -182,8 +181,7 @@ class Mario(EntityBase):
                 self.powerUpState = 1
                 self.traits['goTrait'].updateAnimation(bigAnimation)
                 self.rect = pygame.Rect(self.rect.x, self.rect.y - 32, 32, 64)
-                self.invincibilityFrames = 20
-        if powerupID <= 10:
+        if powerupID == 10:
             self.starstate = True
             self.invincibilityFrames = 1200
 

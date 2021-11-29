@@ -29,12 +29,14 @@ class Sound:
 
     def play_sfx(self, sfx):
         if self.allowSFX:
-            if not self.sfx_channel.get_busy():
+            if not self.sfx_channel.get_busy() and sfx != self.star:
                 self.sfx_channel.play(sfx)
-            elif not self.sfx_channel1.get_busy():
+            elif not self.sfx_channel1.get_busy() and sfx != self.star:
                 self.sfx_channel1.play(sfx)
-            else:
+            elif not self.sfx_channel2.get_busy() and sfx == self.star:
                 self.sfx_channel2.play(sfx)
+            else:
+                self.sfx_channel.play(sfx)
 
     def play_music(self, music):
         self.music_channel.play(music)
